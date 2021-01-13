@@ -4,6 +4,7 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <Name>questionnaire</Name>
     <RootNamespace>questionnaire</RootNamespace>
+    <TestFramework>unittest</TestFramework>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -91,7 +92,6 @@
     <Content Include="app\templates\app\index.html" />
     <Content Include="app\templates\app\layout.html" />
     <Content Include="app\templates\app\login.html" />
-    <Content Include="app\templates\app\loginpartial.html" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.html">

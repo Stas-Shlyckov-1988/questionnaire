@@ -26,7 +26,27 @@
                     <li><a href="{% url 'about' %}">О нас</a></li>
                     <li><a href="{% url 'contact' %}">Контакты</a></li>
                 </ul>
-                {% include 'app/loginpartial.html' %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/admin">Администратор</a></li>
+                </ul>
+
+                {% if user.is_authenticated %}
+                <form id="logoutForm" action="/logout/" method="post" class="navbar-right">
+                    {% csrf_token %}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><span class="navbar-brand">Здравствуйте {{ user.username }}!</span></li>
+                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
+                    </ul>
+
+                </form>
+
+                {% else %}
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'login' %}">Войти</a></li>
+                </ul>
+
+                {% endif %}
             </div>
         </div>
     </div>

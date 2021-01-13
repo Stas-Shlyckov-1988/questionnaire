@@ -20,7 +20,7 @@ class PollListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(PollListView, self).get_context_data(**kwargs)
-        context['title'] = 'Polls'
+        context['title'] = 'Опросить'
         context['year'] = datetime.now().year
         return context
 
@@ -30,7 +30,8 @@ class PollDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PollDetailView, self).get_context_data(**kwargs)
-        context['title'] = 'Poll'
+        context['title'] = 'Опрос'
+        context['btn'] = 'Опросить'
         context['year'] = datetime.now().year
         return context
 
@@ -40,7 +41,8 @@ class PollResultsView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PollResultsView, self).get_context_data(**kwargs)
-        context['title'] = 'Results'
+        context['title'] = 'Результат'
+        context['btn'] = 'Повторить'
         context['year'] = datetime.now().year
         return context
 
@@ -51,8 +53,8 @@ def contact(request):
         request,
         'app/contact.html',
         {
-            'title':'Contact',
-            'message':'Your contact page.',
+            'title':'Контакты',
+            'message':'Ваши контакты.',
             'year':datetime.now().year,
         }
     )
@@ -64,8 +66,8 @@ def about(request):
         request,
         'app/about.html',
         {
-            'title':'About',
-            'message':'Your application description page.',
+            'title':'О нас',
+            'message':'Ваше приложение с описанием страницы.',
             'year':datetime.now().year,
         }
     )

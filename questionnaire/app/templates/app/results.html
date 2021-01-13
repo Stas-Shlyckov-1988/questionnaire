@@ -19,6 +19,6 @@
 {% endfor %}
 
 <br />
-<a class="btn btn-primary" href="{% url 'app:detail' poll.id %}">Vote again?</a>
+<a class="btn btn-primary" href="{% url 'app:detail' poll.id %}">{{btn}}</a>
 
 {% endblock %}
