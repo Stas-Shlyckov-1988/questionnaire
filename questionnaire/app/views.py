@@ -3,6 +3,8 @@ Definition of views.
 """
 
 import json
+from django.http import HttpResponse
+from django.core import serializers
 from os import path
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
@@ -71,6 +73,12 @@ def about(request):
             'year':datetime.now().year,
         }
     )
+
+def questions(request):
+    assert isinstance(request, HttpRequest)
+    poll = Choice.objects.all().select_related('poll')
+
+    return HttpResponse(serializers.serialize('json', poll), content_type='json')
 
 def vote(request, poll_id):
     """Handles voting. Validates input and updates the repository."""
