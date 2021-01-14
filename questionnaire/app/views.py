@@ -98,6 +98,7 @@ def questions(request, poll_id = None):
         poll = serializers.serialize('json', poll)
     else:
         
+        poll = []
         with connection.cursor() as cursor:
             cursor.execute("SELECT * FROM app_poll WHERE id = %s", [poll_id])
             for row in cursor.fetchall():
