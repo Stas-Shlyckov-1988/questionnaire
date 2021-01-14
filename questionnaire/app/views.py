@@ -5,6 +5,7 @@ Definition of views.
 import json
 from django.http import HttpResponse
 from django.core import serializers
+from django.db import connection
 from os import path
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
@@ -74,11 +75,28 @@ def about(request):
         }
     )
 
-def questions(request):
+def questions(request, poll_id = None):
     assert isinstance(request, HttpRequest)
-    poll = Choice.objects.all().select_related('poll')
 
-    return HttpResponse(serializers.serialize('json', poll), content_type='json')
+    if poll_id is None:
+        poll = Choice.objects.all().select_related('poll')
+        poll = serializers.serialize('json', poll)
+    else:
+        
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM app_poll WHERE id = %s", [poll_id])
+            for row in cursor.fetchall():
+                poll = {"id": row[0], "text": row[1], "publication": row[2].isoformat(timespec='microseconds')}
+
+        choice = []
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM app_choice WHERE poll_id = %s", [poll_id])
+            for row in cursor.fetchall():
+                choice.append({"id": row[0], "text": row[1], "voite": row[2]})
+
+        poll = json.dumps([poll, choice])
+
+    return HttpResponse(poll, content_type='json')
 
 def vote(request, poll_id):
     """Handles voting. Validates input and updates the repository."""
