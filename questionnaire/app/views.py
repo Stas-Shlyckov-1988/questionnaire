@@ -75,6 +75,21 @@ def about(request):
         }
     )
 
+def api(request):
+    assert isinstance(request, HttpRequest)
+
+    return render(
+        request,
+        'app/api.html',
+        {
+            'title':'API',
+            'message':'Ссылки указанные ниже',
+            'all': 'Все',
+            'info': 'Детально',
+            'year':datetime.now().year,
+        }
+    )
+
 def questions(request, poll_id = None):
     assert isinstance(request, HttpRequest)
 

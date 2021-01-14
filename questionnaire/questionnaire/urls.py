@@ -45,7 +45,7 @@ urlpatterns = [
         name='login'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
+    path('api/', views.api, name='api'),
     path('api/questions/', views.questions, name='questions_list'),
     path('api/question/<int:poll_id>', views.questions, name='question')
 ]
